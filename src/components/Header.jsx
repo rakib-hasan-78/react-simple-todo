@@ -1,6 +1,5 @@
 // import React from 'react';
 import Title from './../utilities/Title';
-import Button from './../utilities/Button';
 
 const Header = () => {
     return (
