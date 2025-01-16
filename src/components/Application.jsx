@@ -56,7 +56,7 @@ const Application = () => {
                                 <tr key={element.id}>
                                     <td>{index+1<10 ? `0${index+1}.`: `${index+1}.`}</td>
                                     <td>{element.id}</td>
-                                    <td>{element.text}</td>
+                                    <td className='capitalize'>{element.text}</td>
                                 </tr>
                             ))}
                         </tbody>
