@@ -5,14 +5,17 @@ import Button from './../utilities/Button';
 const Application = () => {
     const [data, setData] = useState([]);
     const [text, setText] = useState('');
-
+    // add to click button handler--->
     const clickToAdd = (e) => {
         e.preventDefault();
         setData([...data, { id: new Date().getTime(), text: text, completed: false }]);
         setText('');
     };
-
-    console.log(text);
+    // remove button handler --->
+    const clickToRemove = (element) => {
+        const removeData = data.filter((value) =>(value.id !== element.id));
+        setData(removeData);
+    };
 
     return (
         <section className="w-full h-screen my-10 ">
@@ -59,6 +62,8 @@ const Application = () => {
                                     <td>{index+1<10 ? `0${index+1}.`: `${index+1}.`}</td>
                                     <td>{element.id}</td>
                                     <td className='capitalize'>{element.text}</td>
+                                    <td> <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500 px-2 py-1 text-pink-50 text-sm`}/> </td>
+                                    
                                 </tr>
                             ))}
                         </tbody>
