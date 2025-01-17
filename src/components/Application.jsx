@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import Button from './../utilities/Button';
+import Modal from './Modal';
 
 
 const Application = () => {
+
     const [data, setData] = useState([]);
     const [text, setText] = useState('');
     const [editData, setEditData] = useState(null);
+    const [editText, setEditText] = useState('');
+    
     // add to click button handler--->
     const clickToAdd = (e) => {
         e.preventDefault();
@@ -65,7 +69,9 @@ const Application = () => {
                                     <td className='capitalize'>{element.text}</td>
                                     <td > <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/> </td>
 
-                                    <td> <Button btnName={`edit`} className={`py-1 text-[9px] bg-cyan-500 text-pink-50 font-extralight`}/> </td>
+                                    <td> <Button btnName={`edit`} className={`py-1 text-[9px] bg-cyan-500 text-pink-50 font-extralight`}
+                                        onAction={()=>{setEditData(element); setEditText(element.text)}}
+                                    /> {editData&&editData.id===element.id && ( <Modal title={`edit present data`} /> )}</td>
 
                                     <td> <Button btnName={`complete`} className={`text-[9px] font-extralight bg-emerald-500 text-pink-50`} /> </td>
 

@@ -3,18 +3,18 @@ import Button from './../utilities/Button';
 
 const Modal = ({title, className, onAction,onDiscard, ...props}) => {
     return (
-        <div className="bg-slate-700/90 w-full min-h-screen
+        <div className="w-full
          p-2 z-30 fixed top-0 left-0 flex justify-center items-center flex-wrap">
-            <div className="bg-gradient-to-r from-pink-600/20
-             from-10% via-fuchsia-600/40 via-50%
-              to-rose-800/25 to-90%
+            <div className="bg-gradient-to-r from-pink-600/30
+             from-10% via-fuchsia-600/80 via-50%
+              to-rose-800/45 to-90%
                backdrop-blur-sm 
                bg-opacity-85 
                shadow-xl 
                border 
                border-white/50
                 rounded-lg
-                  w-11/12 xl:w-5/12 lg:w-5/12 h-2/3
+                  w-11/12 xl:w-10/12 lg:w-8/12 h-2/3
                  flex items-center justify-center
                  flex-col inset-1/2">
 
