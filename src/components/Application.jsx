@@ -5,6 +5,7 @@ import Button from './../utilities/Button';
 const Application = () => {
     const [data, setData] = useState([]);
     const [text, setText] = useState('');
+    const [editData, setEditData] = useState(null);
     // add to click button handler--->
     const clickToAdd = (e) => {
         e.preventDefault();
@@ -44,7 +45,7 @@ const Application = () => {
                     />
                 </div>
             </div>
-            {data.length>0 && <div className='w-6/12  mx-auto my-5 bg-gradient-to-r from-red-200 via-pink-200
+            {data.length>0 && <div className='w-11/12 xl:w-6/12 lg:w-6/12  mx-auto my-5 bg-gradient-to-r from-red-200 via-pink-200
              to-pink-100 backdrop-blur-2xl inset-10 border border-pink-100 
              rounded-md shadow-md py-2 bg-opacity-10'>
                     <table className='w-full border'>
@@ -53,7 +54,7 @@ const Application = () => {
                                 <td>SL.</td>
                                 <td>ID No.</td>
                                 <td>Task Description</td>
-                                <td>Action</td>
+                                <td className='text-center'>Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,8 +63,13 @@ const Application = () => {
                                     <td>{index+1<10 ? `0${index+1}.`: `${index+1}.`}</td>
                                     <td>{element.id}</td>
                                     <td className='capitalize'>{element.text}</td>
-                                    <td> <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500 px-2 py-1 text-pink-50 text-sm`}/> </td>
-                                    
+                                    <td > <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/> </td>
+
+                                    <td> <Button btnName={`edit`} className={`py-1 text-[9px] bg-cyan-500 text-pink-50 font-extralight`}/> </td>
+
+                                    <td> <Button btnName={`complete`} className={`text-[9px] font-extralight bg-emerald-500 text-pink-50`} /> </td>
+
+                                    <td> <Button btnName={`undo`} className={`text-[.5625rem] bg-purple-500 text-pink-50`}/> </td>
                                 </tr>
                             ))}
                         </tbody>

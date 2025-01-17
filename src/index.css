@@ -7,5 +7,5 @@
 }
 
 body{
-    @apply bg-gradient-to-r from-blue-500 via-sky-500 to-blue-600 w-full min-h-min;
+    @apply bg-gradient-to-r from-blue-500 via-sky-500 to-blue-600 w-full min-h-min relative z-20;
 }
