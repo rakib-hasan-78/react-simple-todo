@@ -29,12 +29,14 @@ const Application = () => {
                        rounded-md text-zinc-400/70
                         font-light capitalize px-4
                          caret-zinc-400/75 inset-8"
+                         placeholder='add your task here ...'
                         value={text}
                         onChange={(e) => setText(e.target.value)}  // Simplified handler
                     />
                     <Button
+                        disabled={!text.trim()}
                         btnName={`add task`}
-                        className={`bg-sky-600 text-pink-50`}
+                        className={`${!text.trim()?'bg-gray-400 cursor-not-allowed text-red-400':'bg-sky-600 text-pink-50'}`}
                         onAction={clickToAdd}  // Updated to onClick
                     />
                 </div>
@@ -68,3 +70,4 @@ const Application = () => {
 };
 
 export default Application;
+
