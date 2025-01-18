@@ -97,7 +97,7 @@ const Application = () => {
 
   {data.length > 0 && (
     <div className="max-w-4xl mx-auto my-5 bg-gradient-to-r from-red-200 via-pink-200 to-pink-100 backdrop-blur-2xl border border-pink-100 rounded-md shadow-md py-4 px-4">
-      <table className="w-full border border-collapse">
+      <table className="w-full">
         <thead>
           <tr>
             <th className="text-sm text-left px-2">SL.</th>
@@ -108,7 +108,7 @@ const Application = () => {
         </thead>
         <tbody>
           {data.map((element, index) => (
-            <tr key={element.id} className="border-t">
+            <tr key={element.id}>
               <td className="text-sm px-2">{index + 1 < 10 ? `0${index + 1}.` : `${index + 1}.`}</td>
               <td className="text-sm px-2 bg-yellow-200">{element.id}</td>
               <td className={`${element.completed ? 'line-through' : ''} capitalize text-sm px-2`}>{element.text}</td>
