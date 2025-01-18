@@ -9,6 +9,8 @@ const Application = () => {
     const [text, setText] = useState('');
     const [editData, setEditData] = useState(null);
     const [editText, setEditText] = useState('');
+    const [modifyData, setModifyData] = useState([]);
+    const [modalType, setModalType] = useState(null)
     
     // add to click button handler--->
     const clickToAdd = (e) => {
@@ -16,6 +18,39 @@ const Application = () => {
         setData([...data, { id: new Date().getTime(), text: text, completed: false }]);
         setText('');
     };
+    // editing button handler ---->
+    const clickToEdit = (element) => {
+         if (editData!== null && editText!== '') {
+            const editedData = data.map((value) => {
+                if (value.id===element.id) {
+                    return {...value, text: editText}
+                }
+                return value
+            });
+
+            setData(editedData);
+            setEditData(null);
+            setEditText('')
+            
+         }
+    };
+
+    // completing button handler --->
+
+    const clickToComplete = (element) => {
+         
+        setModifyData([...modifyData, element.id]);
+        const modifiedData = data.map(value=>{
+            if (value.id===element.id) {
+                return{...value, completed:true}
+            }
+            return value
+        });
+        setData(modifiedData);
+        setModalType(null);
+    };
+
+
     // remove button handler --->
     const clickToRemove = (element) => {
         const removeData = data.filter((value) =>(value.id !== element.id));
@@ -66,16 +101,21 @@ const Application = () => {
                                 <tr key={element.id}>
                                     <td>{index+1<10 ? `0${index+1}.`: `${index+1}.`}</td>
                                     <td>{element.id}</td>
-                                    <td className='capitalize'>{element.text}</td>
-                                    <td > <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/> </td>
+                                    <td className={`${element.completed ? 'line-through' : ''} capitalize`}>{element.text}</td>
 
-                                    <td> <Button btnName={`edit`} className={`py-1 text-[9px] bg-cyan-500 text-pink-50 font-extralight`}
+                                    <td>  <Button  disabled={modifyData.find(id=> id===element.id)}  btnName={`edit`}
+                                     className={`py-1 text-[9px] text-pink-50 font-extralight ${modifyData.includes(element.id) ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-400'}`}
+
                                         onAction={()=>{setEditData(element); setEditText(element.text)}}
-                                    /> {editData&&editData.id===element.id && ( <Modal title={`edit present data`} /> )}</td>
+                                    /> {editData&&editData.id===element.id && ( <Modal className={`flex`} title={`edit present data`} task={editText} setTask={(e)=>setEditText(e.target.value)}
+                                     doneAction={()=>clickToEdit(element)} 
+                                     onDiscard={()=>setEditData(false)} /> )}</td>
 
-                                    <td> <Button btnName={`complete`} className={`text-[9px] font-extralight bg-emerald-500 text-pink-50`} /> </td>
+                                    <td> <Button disabled={modifyData.find(id=>id===element.id)} btnName={`complete`} className={`text-[9px] font-extralight  text-pink-50 ${modifyData.includes(element.id)?'bg-stone-400':'bg-emerald-500'}`} onAction={()=>setModalType('complete')} /> {modalType==='complete'&&( <Modal className={`hidden`} title={`are you sure ?`} doneAction={()=>clickToComplete(element)} onDiscard={()=>setModalType(null)} /> )} </td>
 
-                                    <td> <Button btnName={`undo`} className={`text-[.5625rem] bg-purple-500 text-pink-50`}/> </td>
+                                    <td> <Button disabled={!element.completed}  btnName={`undo`}   className={`text-[.5625rem] text-pink-50 ${!element.completed ? 'bg-stone-400 cursor-not-allowed' :'bg-purple-500'}`} onAction={()=>setModalType('undo')}/>{modalType==='undo'&&( <Modal className={'hidden'} title={`are you sure to UNDO ?`} />  )}</td>
+
+                                    <td > <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/> </td>
                                 </tr>
                             ))}
                         </tbody>
