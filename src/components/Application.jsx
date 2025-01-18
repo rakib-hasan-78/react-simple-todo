@@ -50,6 +50,21 @@ const Application = () => {
         setModalType(null);
     };
 
+    //  undo button handler --->
+
+    const clickToUndo = (element)=>{
+        setModifyData(modifyData.filter(id=>id!==element.id));
+        const undoData = data.map(value=>{
+            if(value.id===element.id){
+                return {...value, completed:false}
+            }
+            return value;
+        })
+        setData(undoData);
+        setModalType(null);
+
+    }
+
 
     // remove button handler --->
     const clickToRemove = (element) => {
@@ -101,7 +116,7 @@ const Application = () => {
                                 <tr key={element.id}>
                                     <td>{index+1<10 ? `0${index+1}.`: `${index+1}.`}</td>
                                     <td>{element.id}</td>
-                                    <td className={`${element.completed ? 'line-through' : ''} capitalize`}>{element.text}</td>
+                                    <td className={`${element.completed?'line-through' : ''} capitalize`}>{element.text}</td>
 
                                     <td>  <Button  disabled={modifyData.find(id=> id===element.id)}  btnName={`edit`}
                                      className={`py-1 text-[9px] text-pink-50 font-extralight ${modifyData.includes(element.id) ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-400'}`}
@@ -113,7 +128,7 @@ const Application = () => {
 
                                     <td> <Button disabled={modifyData.find(id=>id===element.id)} btnName={`complete`} className={`text-[9px] font-extralight  text-pink-50 ${modifyData.includes(element.id)?'bg-stone-400':'bg-emerald-500'}`} onAction={()=>setModalType('complete')} /> {modalType==='complete'&&( <Modal className={`hidden`} title={`are you sure ?`} doneAction={()=>clickToComplete(element)} onDiscard={()=>setModalType(null)} /> )} </td>
 
-                                    <td> <Button disabled={!element.completed}  btnName={`undo`}   className={`text-[.5625rem] text-pink-50 ${!element.completed ? 'bg-stone-400 cursor-not-allowed' :'bg-purple-500'}`} onAction={()=>setModalType('undo')}/>{modalType==='undo'&&( <Modal className={'hidden'} title={`are you sure to UNDO ?`} />  )}</td>
+                                    <td> <Button disabled={!element.completed}  btnName={`undo`}   className={`text-[.5625rem] text-pink-50 ${!element.completed ? 'bg-stone-400 cursor-not-allowed' :'bg-purple-500'}`} onAction={()=>setModalType('undo')}/>{modalType==='undo'&&( <Modal doneAction={()=>clickToUndo(element)} className={'hidden'} title={`are you sure to UNDO ?`}/>  )}</td>
 
                                     <td > <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/> </td>
                                 </tr>
