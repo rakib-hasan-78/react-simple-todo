@@ -70,6 +70,7 @@ const Application = () => {
     const clickToRemove = (element) => {
         const removeData = data.filter((value) =>(value.id !== element.id));
         setData(removeData);
+        setModalType(null);
     };
 
     return (
@@ -128,12 +129,15 @@ const Application = () => {
 
                                     <td> <Button disabled={modifyData.find(id=>id===element.id)} btnName={`complete`} className={`text-[9px] font-extralight  text-pink-50 ${modifyData.includes(element.id)?'bg-stone-400':'bg-emerald-500'}`} onAction={()=>setModalType('complete')} /> {modalType==='complete'&&( <Modal className={`hidden`} title={`are you sure ?`} doneAction={()=>clickToComplete(element)} onDiscard={()=>setModalType(null)} /> )} </td>
 
-                                    <td> <Button disabled={!element.completed}  btnName={`undo`}   className={`text-[.5625rem] text-pink-50 ${!element.completed ? 'bg-stone-400 cursor-not-allowed' :'bg-purple-500'}`} onAction={()=>setModalType('undo')}/>{modalType==='undo'&&( <Modal doneAction={()=>clickToUndo(element)} className={'hidden'} title={`are you sure to UNDO ?`}/>  )}</td>
+                                    <td> <Button disabled={!element.completed}  btnName={`undo`}   className={`text-[.5625rem] text-pink-50 ${!element.completed ? 'bg-stone-400 cursor-not-allowed' :'bg-purple-500'}`} onAction={()=>setModalType('undo')}/>{modalType==='undo'&&( <Modal doneAction={()=>clickToUndo(element)} onDiscard={()=>setModalType(null)} className={'hidden'} title={`are you sure to UNDO ?`}/>  )}</td>
 
-                                    <td > <Button onAction={() => clickToRemove(element)} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/> </td>
+                                    <td > <Button onAction={() =>setModalType('remove')} btnName={`remove`} className={`bg-red-500   py-1 text-pink-50 font-extralight text-center text-[9px]`}/>{ modalType==='remove' && (<Modal title={`are you sure to remove data ?`} className={`hidden`} 
+                                        doneAction={()=>clickToRemove(element)} onDiscard={()=>setModalType(null)}
+                                    />) } </td>
                                 </tr>
                             ))}
                         </tbody>
+                        
                     </table>
             </div> 
             }
