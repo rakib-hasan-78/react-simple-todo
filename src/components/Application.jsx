@@ -47,7 +47,7 @@ const Application = () => {
             return value
         });
         setData(modifiedData);
-        setModalType(null);
+        
     };
 
     //  undo button handler --->
