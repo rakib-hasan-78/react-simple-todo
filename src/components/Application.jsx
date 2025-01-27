@@ -110,7 +110,7 @@ const Application = () => {
           {data.map((element, index) => (
             <tr key={element.id}>
               <td className="text-sm px-2">{index + 1 < 10 ? `0${index + 1}.` : `${index + 1}.`}</td>
-              <td className="text-sm px-2 bg-yellow-200">{element.id}</td>
+              <td className="text-sm px-2">{element.id}</td>
               <td className={`${element.completed ? 'line-through' : ''} capitalize text-sm px-2`}>{element.text}</td>
               <td className="flex gap-2 px-2">
                 <Button
