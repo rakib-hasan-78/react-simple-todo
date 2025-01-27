@@ -139,11 +139,7 @@ const Application = () => {
                   className={`${modifyData.includes(element.id) ? 'bg-stone-400' : 'bg-emerald-500'} text-xs py-1 px-2 rounded text-pink-50`}
                   onAction={() => setModalType({type:'complete',id:element.id })}
                 />
-<<<<<<< HEAD
                 {modalType && modalType.type === 'complete' && modalType.id===element.id && (
-=======
-                {modalType.type === 'complete' && modalType.id === element.id &&  (
->>>>>>> 1230f531655a5003fa0d8d1b6695dab44f077e13
                   <Modal
                     className="hidden"
                     title="Are you sure?"
