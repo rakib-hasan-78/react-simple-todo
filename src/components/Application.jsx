@@ -123,6 +123,7 @@ const Application = () => {
                   }}
                 />
                 {editData && editData.id === element.id && (
+                  
                   <Modal
                     className="flex"
                     title="Edit Task"
@@ -136,9 +137,9 @@ const Application = () => {
                   disabled={modifyData.find((id) => id === element.id)}
                   btnName="Complete"
                   className={`${modifyData.includes(element.id) ? 'bg-stone-400' : 'bg-emerald-500'} text-xs py-1 px-2 rounded text-pink-50`}
-                  onAction={() => setModalType('complete')}
+                  onAction={() => setModalType({type:'complete',id:element.id })}
                 />
-                {modalType === 'complete' && (
+                {modalType && modalType.type === 'complete' && modalType.id===element.id && (
                   <Modal
                     className="hidden"
                     title="Are you sure?"
@@ -150,9 +151,9 @@ const Application = () => {
                   disabled={!element.completed}
                   btnName="Undo"
                   className={`${!element.completed ? 'bg-stone-400 cursor-not-allowed' : 'bg-purple-500'} text-xs py-1 px-2 rounded text-pink-50`}
-                  onAction={() => setModalType('undo')}
+                  onAction={() => setModalType({type: 'undo', id:element.id})}
                 />
-                {modalType === 'undo' && (
+                {modalType && modalType.type === 'undo' && modalType.id===element.id && (
                   <Modal
                     doneAction={() => clickToUndo(element)}
                     onDiscard={() => setModalType(null)}
@@ -163,9 +164,9 @@ const Application = () => {
                 <Button
                   btnName="Remove"
                   className="bg-red-500 text-xs py-1 px-2 rounded text-pink-50"
-                  onAction={() => setModalType('remove')}
+                  onAction={() => setModalType({type:'remove', id:element.id})}
                 />
-                {modalType === 'remove' && (
+                {modalType&&modalType.type === 'remove' && modalType.id===element.id && (
                   <Modal
                     title="Are you sure to remove this task?"
                     className="hidden"
